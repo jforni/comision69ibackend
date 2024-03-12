@@ -9,4 +9,11 @@ const UsuarioSchema = Schema({
     estado: {type: Boolean, default: true },
 }); 
 
+//Quitar datos extras en la respuesta JSON
+UsuarioSchema.methods.toJSON = function(){
+    const {__v, _id, password, ...usuario} = this.toObject();
+    usuario.uid = _id;
+    return usuario;
+} 
+
 module.exports = model('Usuario', UsuarioSchema)
